@@ -9,7 +9,7 @@ ABoard::ABoard()
 void ABoard::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
@@ -34,20 +34,32 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 			FTransform spawnTransform;
 			spawnTransform.SetLocation(spawnLocation);
 
-			if (tileClass)
+
+
+			AActor* tileToSpawn = nullptr;
+
+			if ((i + j) % 2 && blackTileClass)
 			{
-				AActor* tileToSpawn = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, tileClass.LoadSynchronous(), spawnTransform);
-
-				ATile* tile = Cast<ATile>(tileToSpawn);
-				if (tile)
-				{
-					tile->SetTileInfo(FTileInfo(i, j, 0.0f));
-				}
-
-				tileToSpawn->FinishSpawning(spawnTransform);
-				tiles.Add(tile);
-				tile->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+				tileToSpawn = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, blackTileClass.LoadSynchronous(), spawnTransform);
 			}
+			else if (whiteTileClass)
+			{
+				tileToSpawn = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteTileClass.LoadSynchronous(), spawnTransform);
+			}
+
+			ATile* tile = Cast<ATile>(tileToSpawn);
+			if (tile)
+			{
+				//AChessPiece* piece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whitePawnClass.LoadSynchronous(), spawnTransform);
+
+				tile->SetTileInfo(FTileInfo(i, j, 0.0f));
+				//tile->SetPiece(piece);
+			}
+
+			tileToSpawn->FinishSpawning(spawnTransform);
+			tiles.Add(tile);
+			tile->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+
 		}
 	}
 }
