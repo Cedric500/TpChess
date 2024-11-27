@@ -9,7 +9,6 @@ ABoard::ABoard()
 void ABoard::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
@@ -34,8 +33,6 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 			FTransform spawnTransform;
 			spawnTransform.SetLocation(spawnLocation);
 
-
-
 			AActor* tileToSpawn = nullptr;
 
 			if ((i + j) % 2 && blackTileClass)
@@ -50,9 +47,10 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 			ATile* tile = Cast<ATile>(tileToSpawn);
 			if (tile)
 			{
-				//AChessPiece* piece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whitePawnClass.LoadSynchronous(), spawnTransform);
-
 				tile->SetTileInfo(FTileInfo(i, j, 0.0f));
+
+				PlaceChessPieces(i, j, spawnTransform);
+
 				//tile->SetPiece(piece);
 			}
 
@@ -62,4 +60,43 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 
 		}
 	}
+}
+
+void ABoard::PlaceChessPieces(int i, int j, FTransform spawnTransform)
+{
+#pragma region PawnPiece
+	if (i == 1)
+	{
+		AActor* whitePawn = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whitePawnClass.LoadSynchronous(), spawnTransform);
+
+		whitePawn->FinishSpawning(spawnTransform);
+		whitePawn->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+	else if (i == 6)
+	{
+		AActor* darkPawn = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkPawnClass.LoadSynchronous(), spawnTransform);
+
+		darkPawn->FinishSpawning(spawnTransform);
+		darkPawn->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+#pragma endregion
+
+#pragma region RookPieces
+	if ((i == 0 && j == 0) 
+		|| (i == 0 && j == 7))
+	{
+		AActor* whiteRook = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteRookClass.LoadSynchronous(), spawnTransform);
+
+		whiteRook->FinishSpawning(spawnTransform);
+		whiteRook->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+	else if ((i == 7 && j == 7) 
+		|| (i == 7 && j == 0))
+	{
+		AActor* darkRook = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkRookClass.LoadSynchronous(), spawnTransform);
+
+		darkRook->FinishSpawning(spawnTransform);
+		darkRook->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+#pragma endregion
 }
