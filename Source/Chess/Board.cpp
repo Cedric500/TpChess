@@ -49,9 +49,7 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 			{
 				tile->SetTileInfo(FTileInfo(i, j, 0.0f));
 
-				PlaceChessPieces(i, j, spawnTransform);
-
-				//tile->SetPiece(piece);
+				tile->SetPiece(PlaceChessPieces(i, j, spawnTransform));
 			}
 
 			tileToSpawn->FinishSpawning(spawnTransform);
@@ -62,22 +60,24 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 	}
 }
 
-void ABoard::PlaceChessPieces(int i, int j, FTransform spawnTransform)
+AChessPiece* ABoard::PlaceChessPieces(int i, int j, FTransform spawnTransform)
 {
+	AActor* actorPiece = nullptr;
+
 #pragma region PawnPiece
 	if (i == 1)
 	{
-		AActor* whitePawn = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whitePawnClass.LoadSynchronous(), spawnTransform);
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whitePawnClass.LoadSynchronous(), spawnTransform);
 
-		whitePawn->FinishSpawning(spawnTransform);
-		whitePawn->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	}
 	else if (i == 6)
 	{
-		AActor* darkPawn = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkPawnClass.LoadSynchronous(), spawnTransform);
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkPawnClass.LoadSynchronous(), spawnTransform);
 
-		darkPawn->FinishSpawning(spawnTransform);
-		darkPawn->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	}
 #pragma endregion
 
@@ -85,18 +85,99 @@ void ABoard::PlaceChessPieces(int i, int j, FTransform spawnTransform)
 	if ((i == 0 && j == 0) 
 		|| (i == 0 && j == 7))
 	{
-		AActor* whiteRook = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteRookClass.LoadSynchronous(), spawnTransform);
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteRookClass.LoadSynchronous(), spawnTransform);
 
-		whiteRook->FinishSpawning(spawnTransform);
-		whiteRook->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	}
 	else if ((i == 7 && j == 7) 
 		|| (i == 7 && j == 0))
 	{
-		AActor* darkRook = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkRookClass.LoadSynchronous(), spawnTransform);
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkRookClass.LoadSynchronous(), spawnTransform);
 
-		darkRook->FinishSpawning(spawnTransform);
-		darkRook->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	}
 #pragma endregion
+
+#pragma region KnightPiece
+	if ((i == 0 && j == 1)
+		|| (i == 0 && j == 6))
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteKnightClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+	else if ((i == 7 && j == 1)
+		|| (i == 7 && j == 6))
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkKnightClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+#pragma endregion
+
+#pragma region BishopPiece
+	if ((i == 0 && j == 2)
+		|| (i == 0 && j == 5))
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteBishopClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+	else if ((i == 7 && j == 2)
+		|| (i == 7 && j == 5))
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkBishopClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+#pragma endregion
+
+#pragma region QueenPiece
+	if (i == 0 && j == 4)
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteQueenClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+	else if (i == 7 && j == 4)
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkQueenClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+#pragma endregion
+
+#pragma region KingPiece
+	if (i == 0 && j == 3)
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteKingClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+	else if (i == 7 && j == 3)
+	{
+		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkKingClass.LoadSynchronous(), spawnTransform);
+
+		actorPiece->FinishSpawning(spawnTransform);
+		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	}
+#pragma endregion
+
+
+	AChessPiece* piece = Cast<AChessPiece>(actorPiece);
+	if (piece)
+	{
+		return piece;
+	}
+
+	return nullptr;
 }

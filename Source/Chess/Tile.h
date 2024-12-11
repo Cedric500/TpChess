@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ChessPiece.h"
 #include "Tile.generated.h"
 
 USTRUCT(BlueprintType)
@@ -32,12 +33,17 @@ public:
 	ATile();
 
 	void SetTileInfo(FTileInfo a_tileInfo) { TileInfo = a_tileInfo; }
+	void SetPiece(AChessPiece* piece) { Piece = piece; }
 
 	UFUNCTION(BlueprintCallable)
 	FTileInfo GetTileInfo() { return TileInfo; }
 
+	UFUNCTION(BlueprintCallable)
+	AChessPiece* GetPiece() { return Piece; }
+
 protected:
 	virtual void BeginPlay() override;
+	
 
 
 public:	
@@ -47,5 +53,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Config", meta = (AllowPrivateAccess = true))
 	FTileInfo TileInfo;
+
+	AChessPiece* Piece;
 
 };

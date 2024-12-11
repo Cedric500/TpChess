@@ -20,7 +20,7 @@ public:
 	void BuildBoard(const int a_X, const int a_Y);
 
 private:
-	void PlaceChessPieces(int i, int j, FTransform spawnTransform);
+	AChessPiece* PlaceChessPieces(int i, int j, FTransform spawnTransform);
 protected:
 	virtual void BeginPlay() override;
 
@@ -39,6 +39,7 @@ protected:
 	TSoftClassPtr<ATile> blackTileClass;
 #pragma endregion
 
+#pragma region WhitePieces
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSoftClassPtr<AChessPiece> whitePawnClass;
 
@@ -46,8 +47,35 @@ protected:
 	TSoftClassPtr<AChessPiece> whiteRookClass;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> whiteKnightClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> whiteBishopClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> whiteQueenClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> whiteKingClass;
+#pragma endregion
+
+#pragma region DarkPieces
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSoftClassPtr<AChessPiece> darkPawnClass;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSoftClassPtr<AChessPiece> darkRookClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> darkKnightClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> darkBishopClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> darkQueenClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftClassPtr<AChessPiece> darkKingClass;
+#pragma endregion
 };

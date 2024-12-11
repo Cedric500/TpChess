@@ -12,4 +12,7 @@ class CHESS_API ARookPiece : public AChessPiece
 {
 	GENERATED_BODY()
 	
+
+public:
+	virtual void PrintType() override { UE_LOG(LogTemp, Warning, TEXT("Rook")); };
 };
