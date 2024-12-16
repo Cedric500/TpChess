@@ -1,5 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "BishopPiece.h"
 
+void ABishopPiece::GetAvailableMovement()
+{
+
+}
+
+void ABishopPiece::ClickOnPiece()
+{
+	GetAvailableMovement();
+}

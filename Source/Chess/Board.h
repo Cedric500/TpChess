@@ -19,6 +19,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void BuildBoard(const int a_X, const int a_Y);
 
+
 private:
 	AChessPiece* PlaceChessPieces(int i, int j, FTransform spawnTransform);
 protected:

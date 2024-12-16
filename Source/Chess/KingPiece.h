@@ -14,4 +14,8 @@ class CHESS_API AKingPiece : public AChessPiece
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void PrintType() override { UE_LOG(LogTemp, Warning, TEXT("King")); };
+	virtual void ClickOnPiece();
+	virtual void GetAvailableMovement();
 };

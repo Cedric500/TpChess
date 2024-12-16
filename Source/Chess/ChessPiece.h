@@ -16,11 +16,14 @@ public:
 
 	AChessPiece();
 
+
 	UFUNCTION(BlueprintCallable)
 	virtual void ClickOnPiece() {};
 
+	virtual void GetAvailableMovement() {};
+
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = true))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = false))
 	bool isBlack;
 
 public:	
