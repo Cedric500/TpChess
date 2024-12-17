@@ -5,6 +5,8 @@
 #include "ChessPiece.h"
 #include "Tile.generated.h"
 
+class ABoard;
+
 USTRUCT(BlueprintType)
 struct FTileInfo
 {
@@ -40,6 +42,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	AChessPiece* GetPiece() { return Piece; }
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = true))
+	ABoard* BoardRef;
 
 protected:
 	virtual void BeginPlay() override;

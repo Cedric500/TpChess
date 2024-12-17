@@ -15,8 +15,6 @@ class CHESS_API APawnPiece : public AChessPiece
 
 public:
 
-	bool FirstMove;
-
 	virtual void PrintType() override { UE_LOG(LogTemp, Warning, TEXT("Pawn")); };
 	virtual void ClickOnPiece();
 	virtual void GetAvailableMovement();
@@ -24,5 +22,6 @@ public:
 
 private:
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = true))
+	bool FirstMove;
 };

@@ -19,9 +19,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void BuildBoard(const int a_X, const int a_Y);
 
+	void SetActiveTile(ATile* tileInfo);
+
+	UFUNCTION(BlueprintCallable)
+	void TileClicked(ATile* tileClicked);
 
 private:
+
 	AChessPiece* PlaceChessPieces(int i, int j, FTransform spawnTransform);
+
+	ATile* ActiveTile;
+
 protected:
 	virtual void BeginPlay() override;
 

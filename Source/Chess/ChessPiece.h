@@ -8,11 +8,11 @@ UCLASS()
 class CHESS_API AChessPiece : public AActor
 {
 	GENERATED_BODY()
-	
+
 	UFUNCTION(BlueprintCallable)
 	virtual void PrintType() { UE_LOG(LogTemp, Warning, TEXT("BaseClass")); };
 
-public:	
+public:
 
 	AChessPiece();
 
@@ -22,11 +22,14 @@ public:
 
 	virtual void GetAvailableMovement() {};
 
+	virtual void MovingPiece() {};
+
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = false))
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = true))
 	bool isBlack;
 
-public:	
+public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = true))
 	TObjectPtr<UStaticMeshComponent> StaticMeshComponent;
 

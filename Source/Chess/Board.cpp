@@ -55,8 +55,31 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 			tileToSpawn->FinishSpawning(spawnTransform);
 			tiles.Add(tile);
 			tile->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+			tile->BoardRef = this;
 
 		}
+	}
+}
+
+void ABoard::SetActiveTile(ATile* tileInfo)
+{
+	ActiveTile = tileInfo;
+}
+
+void ABoard::TileClicked(ATile* tileClicked)
+{
+	if (!ActiveTile)
+	{
+		SetActiveTile(tileClicked);
+	}
+	else
+	{
+		FVector tempLocation = ActiveTile->GetPiece()->GetActorLocation();
+		tempLocation.X = 0;
+		tempLocation.Y = 0;
+		tempLocation.Z = 0;
+		ActiveTile->GetPiece()->SetActorLocation(tempLocation);
+		SetActiveTile(nullptr);
 	}
 }
 
@@ -82,7 +105,7 @@ AChessPiece* ABoard::PlaceChessPieces(int i, int j, FTransform spawnTransform)
 #pragma endregion
 
 #pragma region RookPieces
-	if ((i == 0 && j == 0) 
+	if ((i == 0 && j == 0)
 		|| (i == 0 && j == 7))
 	{
 		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, whiteRookClass.LoadSynchronous(), spawnTransform);
@@ -90,7 +113,7 @@ AChessPiece* ABoard::PlaceChessPieces(int i, int j, FTransform spawnTransform)
 		actorPiece->FinishSpawning(spawnTransform);
 		actorPiece->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	}
-	else if ((i == 7 && j == 7) 
+	else if ((i == 7 && j == 7)
 		|| (i == 7 && j == 0))
 	{
 		actorPiece = UGameplayStatics::BeginDeferredActorSpawnFromClass(this, darkRookClass.LoadSynchronous(), spawnTransform);
