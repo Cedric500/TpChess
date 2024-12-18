@@ -26,7 +26,11 @@ public:
 	virtual void GetAvailableMovement() {};
 
 	virtual void MovingPiece() {};
-	std::vector<FInt32Point> PossibleMove;
+
+	TArray<FInt32Point> PossibleMove;
+
+	int PosI;
+	int PosJ;
 
 protected:
 

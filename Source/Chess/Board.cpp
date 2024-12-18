@@ -64,6 +64,7 @@ void ABoard::BuildBoard(const int a_Rows, const int a_Columns)
 void ABoard::SetActiveTile(ATile* tileInfo)
 {
 	ActiveTile = tileInfo;
+	//Check possible moves
 }
 
 void ABoard::TileClicked(ATile* tileClicked)
@@ -74,11 +75,23 @@ void ABoard::TileClicked(ATile* tileClicked)
 	}
 	else
 	{
-		FVector tempLocation = ActiveTile->GetPiece()->GetActorLocation();
-		tempLocation.X = 0;
-		tempLocation.Y = 0;
-		tempLocation.Z = 0;
+		if (!ActiveTile->GetPiece())
+		{
+			SetActiveTile(tileClicked);
+			return;
+		}
+
+		FVector tempLocation = tileClicked->GetActorLocation();
+		tempLocation.Z += 20;
+
 		ActiveTile->GetPiece()->SetActorLocation(tempLocation);
+		tileClicked->SetPiece(ActiveTile->GetPiece());
+		ActiveTile->SetPiece(nullptr);
+		tileClicked->GetPiece()->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+
+		//Possible de devoir mettre en y au lieu du x
+		tileClicked->GetPiece()->PosI = tileClicked->GetTileInfo().x;
+		tileClicked->GetPiece()->PosJ = tileClicked->GetTileInfo().y;
 		SetActiveTile(nullptr);
 	}
 }
