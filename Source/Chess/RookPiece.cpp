@@ -1,11 +1,14 @@
+// vector::push_back
+#include <iostream>
 #include "RookPiece.h"
 
-void ARookPiece::GetAvailableMovement()
+#include <vector>
+
+ARookPiece::ARookPiece()
 {
 
-}
-
-void ARookPiece::ClickOnPiece()
-{
-	GetAvailableMovement();
+	for (int i = 1; i <= 7; i++)
+	{
+		
+	}
 }

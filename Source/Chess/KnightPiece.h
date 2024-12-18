@@ -14,6 +14,5 @@ class CHESS_API AKnightPiece : public AChessPiece
 	
 public:
 	virtual void PrintType() override { UE_LOG(LogTemp, Warning, TEXT("Knight")); };
-	virtual void ClickOnPiece();
-	virtual void GetAvailableMovement();
+
 };
