@@ -81,6 +81,19 @@ void ABoard::TileClicked(ATile* tileClicked)
 			return;
 		}
 
+		if (tileClicked->GetPiece())
+		{
+			if (ActiveTile->GetPiece()->isBlack != tileClicked->GetPiece()->isBlack)
+			{
+				tileClicked->GetPiece()->Destroy();
+				tileClicked->SetPiece(nullptr);
+			}
+			else
+			{
+				return;
+			}
+		}
+
 		FVector tempLocation = tileClicked->GetActorLocation();
 		tempLocation.Z += 20;
 

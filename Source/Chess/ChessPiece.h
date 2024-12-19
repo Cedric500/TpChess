@@ -19,6 +19,8 @@ public:
 
 	AChessPiece();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = true))
+	bool isBlack;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void ClickOnPiece() {};
@@ -34,8 +36,6 @@ public:
 
 protected:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components", meta = (AllowPrivateAccess = true))
-	bool isBlack;
 
 
 
